@@ -1,15 +1,15 @@
 // Project:         Advanced Locomotion System V4 on C++
 // Copyright:       Copyright (C) 2021 Doğa Can Yanıkoğlu
 // License:         MIT License (http://www.opensource.org/licenses/mit-license.php)
-// Source Code:     https://github.com/bazhicc/CyShooter
+// Source Code:     https://github.com/bazhicc/ALS
 // Original Author: Doğa Can Yanıkoğlu
 // Contributors:  
 
 using UnrealBuildTool;
 
-public class CyShooter : ModuleRules
+public class ALS : ModuleRules
 {
-	public CyShooter(ReadOnlyTargetRules Target) : base(Target)
+	public ALS(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 

@@ -14,7 +14,7 @@
 
 /** Picks a random location reachable through NavMesh within the Max Distance from the Owning Pawn's current location and assigns it to the specified Blackboard Key. */
 UCLASS(Category=ALS, meta=(DisplayName = "Get Random Location"))
-class CYSHOOTER_API UALS_BTTask_GetRandomLocation : public UBTTask_BlackboardBase
+class ALS_API UALS_BTTask_GetRandomLocation : public UBTTask_BlackboardBase
 {
 	GENERATED_BODY()
 

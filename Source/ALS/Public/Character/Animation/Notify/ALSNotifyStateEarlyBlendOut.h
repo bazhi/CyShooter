@@ -18,7 +18,7 @@
  * Character early blend out anim state
  */
 UCLASS()
-class CYSHOOTER_API UALSNotifyStateEarlyBlendOut : public UAnimNotifyState
+class ALS_API UALSNotifyStateEarlyBlendOut : public UAnimNotifyState
 {
 	GENERATED_BODY()
 

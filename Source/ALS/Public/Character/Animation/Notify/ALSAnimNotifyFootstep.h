@@ -21,7 +21,7 @@ class UDataTable;
  * Character footstep anim notify
  */
 UCLASS()
-class CYSHOOTER_API UALSAnimNotifyFootstep : public UAnimNotify
+class ALS_API UALSAnimNotifyFootstep : public UAnimNotify
 {
 	GENERATED_BODY()
 

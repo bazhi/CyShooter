@@ -10,24 +10,23 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimNotifies/AnimNotify.h"
-#include "ALSAnimNotifyCameraShake.generated.h"
+#include "Library/ALSCharacterEnumLibrary.h"
 
-class UMatineeCameraShake;
+#include "ALSAnimNotifyGroundedEntryState.generated.h"
 
 /**
- * Generic camera shake animation notify for pawns with controller enabled
+ * 
  */
 UCLASS()
-class CYSHOOTER_API UALSAnimNotifyCameraShake : public UAnimNotify
+class ALS_API UALSAnimNotifyGroundedEntryState : public UAnimNotify
 {
 	GENERATED_BODY()
 
 	virtual void Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation) override;
 
+	virtual FString GetNotifyName_Implementation() const override;
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AnimNotify)
-	TSubclassOf<UCameraShakeBase> ShakeClass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AnimNotify)
-	float Scale = 1.0f;
+	EALSGroundedEntryState GroundedEntryState = EALSGroundedEntryState::None;
 };

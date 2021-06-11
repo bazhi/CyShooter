@@ -34,7 +34,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRagdollStateChangedSignature, bool,
  * Base character class
  */
 UCLASS(BlueprintType)
-class CYSHOOTER_API AALSBaseCharacter : public ACharacter
+class ALS_API AALSBaseCharacter : public ACharacter
 {
 	GENERATED_BODY()
 

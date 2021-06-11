@@ -16,7 +16,7 @@
  * Specialized character class, with additional features like held object etc.
  */
 UCLASS(Blueprintable, BlueprintType)
-class CYSHOOTER_API AALSCharacter : public AALSBaseCharacter
+class ALS_API AALSCharacter : public AALSBaseCharacter
 {
 	GENERATED_BODY()
 

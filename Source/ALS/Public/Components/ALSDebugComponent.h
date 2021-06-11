@@ -16,7 +16,7 @@
 class AALSBaseCharacter;
 
 UCLASS(Blueprintable, BlueprintType)
-class CYSHOOTER_API UALSDebugComponent : public UActorComponent
+class ALS_API UALSDebugComponent : public UActorComponent
 {
 	GENERATED_BODY()
 

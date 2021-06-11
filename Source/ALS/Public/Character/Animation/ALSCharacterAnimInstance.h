@@ -26,7 +26,7 @@ class UCurveVector;
  * Main anim instance class for character
  */
 UCLASS(Blueprintable, BlueprintType)
-class CYSHOOTER_API UALSCharacterAnimInstance : public UAnimInstance
+class ALS_API UALSCharacterAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
 

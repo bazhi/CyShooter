@@ -17,7 +17,7 @@
  * 
  */
 UCLASS()
-class CYSHOOTER_API AALSAIController : public AAIController
+class ALS_API AALSAIController : public AAIController
 {
 	GENERATED_BODY()
 

@@ -17,7 +17,7 @@
  * Authoritative networked Character Movement
  */
 UCLASS()
-class CYSHOOTER_API UALSCharacterMovementComponent : public UCharacterMovementComponent
+class ALS_API UALSCharacterMovementComponent : public UCharacterMovementComponent
 {
 	GENERATED_UCLASS_BODY()
 

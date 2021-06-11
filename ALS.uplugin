@@ -18,7 +18,7 @@
 	"Installed": false,
 	"Modules": [
 		{
-			"Name": "CyShooter",
+			"Name": "ALS",
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [

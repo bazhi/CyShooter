@@ -21,7 +21,7 @@ class UCapsuleComponent;
  * Math library functions for ALS
  */
 UCLASS()
-class CYSHOOTER_API UALSMathLibrary : public UBlueprintFunctionLibrary
+class ALS_API UALSMathLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 

@@ -9,24 +9,27 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Animation/AnimNotifies/AnimNotify.h"
+#include "Animation/AnimNotifies/AnimNotifyState.h"
 #include "Library/ALSCharacterEnumLibrary.h"
 
-#include "ALSAnimNotifyGroundedEntryState.generated.h"
+#include "ALSNotifyStateMovementAction.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class CYSHOOTER_API UALSAnimNotifyGroundedEntryState : public UAnimNotify
+class ALS_API UALSNotifyStateMovementAction : public UAnimNotifyState
 {
 	GENERATED_BODY()
 
-	virtual void Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation) override;
+	virtual void NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation,
+	                         float TotalDuration) override;
+
+	virtual void NotifyEnd(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation) override;
 
 	virtual FString GetNotifyName_Implementation() const override;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AnimNotify)
-	EALSGroundedEntryState GroundedEntryState = EALSGroundedEntryState::None;
+	EALSMovementAction MovementAction = EALSMovementAction::None;
 };

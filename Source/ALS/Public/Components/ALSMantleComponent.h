@@ -19,7 +19,7 @@ class UALSDebugComponent;
 
 
 UCLASS(Blueprintable, BlueprintType)
-class CYSHOOTER_API UALSMantleComponent : public UActorComponent
+class ALS_API UALSMantleComponent : public UActorComponent
 {
 	GENERATED_BODY()
 

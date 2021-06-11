@@ -17,7 +17,7 @@ class AALSBaseCharacter;
  * Player controller class
  */
 UCLASS(Blueprintable, BlueprintType)
-class CYSHOOTER_API AALSPlayerController : public APlayerController
+class ALS_API AALSPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 

@@ -16,7 +16,7 @@
  * 
  */
 UCLASS()
-class CYSHOOTER_API UALSNotifyStateOverlayOverride : public UAnimNotifyState
+class ALS_API UALSNotifyStateOverlayOverride : public UAnimNotifyState
 {
 	GENERATED_BODY()
 

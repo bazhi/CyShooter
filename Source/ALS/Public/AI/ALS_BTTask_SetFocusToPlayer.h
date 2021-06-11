@@ -13,7 +13,7 @@
 
 /** Set AIController's Focus to the Player's Pawn Actor. */
 UCLASS(Category = ALS, meta = (DisplayName = "Set Focus to Player"))
-class CYSHOOTER_API UALS_BTTask_SetFocusToPlayer : public UBTTaskNode
+class ALS_API UALS_BTTask_SetFocusToPlayer : public UBTTaskNode
 {
 	GENERATED_BODY()
 
