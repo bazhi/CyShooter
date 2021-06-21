@@ -22,6 +22,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
+#include "Library/ALSNameLibrary.h"
 #include "Net/UnrealNetwork.h"
 
 
@@ -48,25 +49,23 @@ void AALSBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAxis("MoveForward/Backwards", this, &AALSBaseCharacter::PlayerForwardMovementInput);
-	PlayerInputComponent->BindAxis("MoveRight/Left", this, &AALSBaseCharacter::PlayerRightMovementInput);
-	PlayerInputComponent->BindAxis("LookUp/Down", this, &AALSBaseCharacter::PlayerCameraUpInput);
-	PlayerInputComponent->BindAxis("LookLeft/Right", this, &AALSBaseCharacter::PlayerCameraRightInput);
-	PlayerInputComponent->BindAction("JumpAction", IE_Pressed, this, &AALSBaseCharacter::JumpPressedAction);
-	PlayerInputComponent->BindAction("JumpAction", IE_Released, this, &AALSBaseCharacter::JumpReleasedAction);
-	PlayerInputComponent->BindAction("StanceAction", IE_Pressed, this, &AALSBaseCharacter::StancePressedAction);
-	PlayerInputComponent->BindAction("WalkAction", IE_Pressed, this, &AALSBaseCharacter::WalkPressedAction);
-	PlayerInputComponent->BindAction("RagdollAction", IE_Pressed, this, &AALSBaseCharacter::RagdollPressedAction);
-	PlayerInputComponent->BindAction("SelectRotationMode_1", IE_Pressed, this,
-	                                 &AALSBaseCharacter::VelocityDirectionPressedAction);
-	PlayerInputComponent->BindAction("SelectRotationMode_2", IE_Pressed, this,
-	                                 &AALSBaseCharacter::LookingDirectionPressedAction);
-	PlayerInputComponent->BindAction("SprintAction", IE_Pressed, this, &AALSBaseCharacter::SprintPressedAction);
-	PlayerInputComponent->BindAction("SprintAction", IE_Released, this, &AALSBaseCharacter::SprintReleasedAction);
-	PlayerInputComponent->BindAction("AimAction", IE_Pressed, this, &AALSBaseCharacter::AimPressedAction);
-	PlayerInputComponent->BindAction("AimAction", IE_Released, this, &AALSBaseCharacter::AimReleasedAction);
-	PlayerInputComponent->BindAction("CameraAction", IE_Pressed, this, &AALSBaseCharacter::CameraPressedAction);
-	PlayerInputComponent->BindAction("CameraAction", IE_Released, this, &AALSBaseCharacter::CameraReleasedAction);
+	PlayerInputComponent->BindAxis(ALS::Input::MoveFB, this, &AALSBaseCharacter::PlayerForwardMovementInput);
+	PlayerInputComponent->BindAxis(ALS::Input::MoveLR, this, &AALSBaseCharacter::PlayerRightMovementInput);
+	PlayerInputComponent->BindAxis(ALS::Input::LookUD, this, &AALSBaseCharacter::PlayerCameraUpInput);
+	PlayerInputComponent->BindAxis(ALS::Input::LookLR, this, &AALSBaseCharacter::PlayerCameraRightInput);
+	PlayerInputComponent->BindAction(ALS::Input::JumpAction, IE_Pressed, this, &AALSBaseCharacter::JumpPressedAction);
+	PlayerInputComponent->BindAction(ALS::Input::JumpAction, IE_Released, this, &AALSBaseCharacter::JumpReleasedAction);
+	PlayerInputComponent->BindAction(ALS::Input::StanceAction, IE_Pressed, this, &AALSBaseCharacter::StancePressedAction);
+	PlayerInputComponent->BindAction(ALS::Input::WalkAction, IE_Pressed, this, &AALSBaseCharacter::WalkPressedAction);
+	PlayerInputComponent->BindAction(ALS::Input::RagdollAction, IE_Pressed, this, &AALSBaseCharacter::RagdollPressedAction);
+	PlayerInputComponent->BindAction(ALS::Input::SelectRotationMode_1, IE_Pressed, this, &AALSBaseCharacter::VelocityDirectionPressedAction);
+	PlayerInputComponent->BindAction(ALS::Input::SelectRotationMode_2, IE_Pressed, this, &AALSBaseCharacter::LookingDirectionPressedAction);
+	PlayerInputComponent->BindAction(ALS::Input::SprintAction, IE_Pressed, this, &AALSBaseCharacter::SprintPressedAction);
+	PlayerInputComponent->BindAction(ALS::Input::SprintAction, IE_Released, this, &AALSBaseCharacter::SprintReleasedAction);
+	PlayerInputComponent->BindAction(ALS::Input::AimAction, IE_Pressed, this, &AALSBaseCharacter::AimPressedAction);
+	PlayerInputComponent->BindAction(ALS::Input::AimAction, IE_Released, this, &AALSBaseCharacter::AimReleasedAction);
+	PlayerInputComponent->BindAction(ALS::Input::CameraAction, IE_Pressed, this, &AALSBaseCharacter::CameraPressedAction);
+	PlayerInputComponent->BindAction(ALS::Input::CameraAction, IE_Released, this, &AALSBaseCharacter::CameraReleasedAction);
 }
 
 void AALSBaseCharacter::PostInitializeComponents()
@@ -112,7 +111,7 @@ void AALSBaseCharacter::BeginPlay()
 	// If we're in networked game, disable curved movement
 	bEnableNetworkOptimizations = !IsNetMode(NM_Standalone);
 
-	// Make sure the mesh and animbp update after the CharacterBP to ensure it gets the most recent values.
+	// Make sure the mesh and anim bp update after the CharacterBP to ensure it gets the most recent values.
 	GetMesh()->AddTickPrerequisiteActor(this);
 
 	// Set the Movement Model
@@ -213,7 +212,7 @@ void AALSBaseCharacter::RagdollStart()
 	}
 
 	/** When Networked, disables replicate movement reset TargetRagdollLocation and ServerRagdollPull variable
-	and if the host is a dedicated server, change character mesh optimisation option to avoid z-location bug*/
+	and if the host is a dedicated server, change character mesh optimisation option to avoid z-location*/
 	MyCharacterMovementComponent->bIgnoreClientMovementErrorChecksAndCorrection = 1;
 
 	if (UKismetSystemLibrary::IsDedicatedServer(GetWorld()))
@@ -714,7 +713,7 @@ void AALSBaseCharacter::RagdollUpdate(float DeltaTime)
 		                      ? NewRagdollVel
 		                      : LastRagdollVelocity / 2;
 
-	// Use the Ragdoll Velocity to scale the ragdoll's joint strength for physical animation.
+	// Use the Ragdoll Velocity to scale the RagDoll's joint strength for physical animation.
 	const float SpringValue = FMath::GetMappedRangeValueClamped({0.0f, 1000.0f}, {0.0f, 25000.0f},
 	                                                            LastRagdollVelocity.Size());
 	GetMesh()->SetAllMotorsAngularDriveParams(SpringValue, 0.0f, 0.0f, false);
@@ -740,12 +739,14 @@ void AALSBaseCharacter::SetActorLocationDuringRagdoll(float DeltaTime)
 		}
 	}
 
-	// Determine wether the ragdoll is facing up or down and set the target rotation accordingly.
+	// Determine whether the ragdoll is facing up or down and set the target rotation accordingly.
 	const FRotator PelvisRot = GetMesh()->GetSocketRotation(NAME_Pelvis);
 
-	if (bReversedPelvis) {
+	if (bReversedPelvis)
+	{
 		bRagdollFaceUp = PelvisRot.Roll > 0.0f;
-	} else
+	}
+	else
 	{
 		bRagdollFaceUp = PelvisRot.Roll < 0.0f;
 	}
@@ -825,7 +826,7 @@ void AALSBaseCharacter::OnMovementStateChanged(const EALSMovementState PreviousS
 	{
 		if (MovementAction == EALSMovementAction::None)
 		{
-			// If the character enters the air, set the In Air Rotation and uncrouch if crouched.
+			// If the character enters the air, set the In Air Rotation and unCrouch if crouched.
 			InAirRotation = GetActorRotation();
 			if (Stance == EALSStance::Crouching)
 			{
@@ -889,7 +890,7 @@ void AALSBaseCharacter::OnRotationModeChanged(EALSRotationMode PreviousRotationM
 	if (RotationMode == EALSRotationMode::VelocityDirection && ViewMode == EALSViewMode::FirstPerson)
 	{
 		// If the new rotation mode is Velocity Direction and the character is in First Person,
-		// set the viewmode to Third Person.
+		// set the view mode to Third Person.
 		SetViewMode(EALSViewMode::ThirdPerson);
 	}
 
